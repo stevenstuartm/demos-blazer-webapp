@@ -1,4 +1,4 @@
-﻿namespace demos.blazer.webapp.Features.Pizza.DTOs
+﻿namespace demos.blazer.webapp.Features.PizzaShop.DTOs
 {
     /// <summary>
     /// Represents a customized pizza as part of an order
@@ -13,13 +13,13 @@
 
         public int OrderId { get; set; }
 
-        public required PizzaSpecial Special { get; set; }
+        public  PizzaSpecial Special { get; set; }
 
         public int SpecialId { get; set; }
 
         public int Size { get; set; }
 
-        public required List<PizzaTopping> Toppings { get; set; }
+        public  List<PizzaTopping> Toppings { get; set; }
 
         public decimal GetBasePrice()
         {

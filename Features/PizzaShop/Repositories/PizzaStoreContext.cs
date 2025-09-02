@@ -1,7 +1,7 @@
-﻿using demos.blazer.webapp.Features.Pizza.DTOs;
+﻿using demos.blazer.webapp.Features.PizzaShop.DTOs;
 using Microsoft.EntityFrameworkCore;
 
-namespace demos.blazer.webapp.Features.Pizza.Repositories
+namespace demos.blazer.webapp.Features.PizzaShop.Repositories
 {
     public class PizzaStoreContext : DbContext
     {

@@ -1,6 +1,6 @@
-﻿using demos.blazer.webapp.Features.Pizza.DTOs;
+﻿using demos.blazer.webapp.Features.PizzaShop.DTOs;
 
-namespace demos.blazer.webapp.Features.Pizza.Repositories
+namespace demos.blazer.webapp.Features.PizzaShop.Repositories
 {
     public static class SeedData
     {

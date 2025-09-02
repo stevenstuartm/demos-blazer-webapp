@@ -1,14 +1,14 @@
-﻿namespace demos.blazer.webapp.Features.Pizza.DTOs
+﻿namespace demos.blazer.webapp.Features.PizzaShop.DTOs
 {
     public class Order
     {
         public int OrderId { get; set; }
 
-        public required string UserId { get; set; }
+        public string UserId { get; set; }
 
         public DateTime CreatedTime { get; set; }
 
-        public required Address DeliveryAddress { get; set; }
+        public Address DeliveryAddress { get; set; }
 
         public List<Pizza> Pizzas { get; set; } = new List<Pizza>();
 

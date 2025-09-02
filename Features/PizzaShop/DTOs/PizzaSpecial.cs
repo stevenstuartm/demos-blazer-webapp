@@ -1,4 +1,4 @@
-﻿namespace demos.blazer.webapp.Features.Pizza.DTOs
+﻿namespace demos.blazer.webapp.Features.PizzaShop.DTOs
 {
     /// <summary>
     /// Represents a pre-configured template for a pizza a user can order
@@ -7,13 +7,13 @@
     {
         public int Id { get; set; }
 
-        public required string Name { get; set; }
+        public  string Name { get; set; }
 
-        public required decimal BasePrice { get; set; }
+        public  decimal BasePrice { get; set; }
 
-        public required string Description { get; set; }
+        public  string Description { get; set; }
 
-        public required string ImageUrl { get; set; }
+        public  string ImageUrl { get; set; }
 
         public string GetFormattedBasePrice() => BasePrice.ToString("0.00");
     }

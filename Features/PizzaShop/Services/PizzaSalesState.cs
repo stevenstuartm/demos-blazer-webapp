@@ -1,4 +1,4 @@
-﻿namespace demos.blazer.webapp.Features.Pizza.States
+﻿namespace demos.blazer.webapp.Features.PizzaShop.Services
 {
     public class PizzaSalesState
     {

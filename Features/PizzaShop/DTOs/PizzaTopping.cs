@@ -1,8 +1,8 @@
-﻿namespace demos.blazer.webapp.Features.Pizza.DTOs
+﻿namespace demos.blazer.webapp.Features.PizzaShop.DTOs
 {
     public class PizzaTopping
     {
-        public required Topping Topping { get; set; }
+        public  Topping Topping { get; set; }
 
         public int ToppingId { get; set; }
         

@@ -1,11 +1,11 @@
-﻿using demos.blazer.webapp.Features.Pizza.DTOs;
-using demos.blazer.webapp.Features.Pizza.Repositories;
+﻿using demos.blazer.webapp.Features.PizzaShop.DTOs;
+using demos.blazer.webapp.Features.PizzaShop.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace demos.blazer.webapp.Features.Pizza.Controllers
+namespace demos.blazer.webapp.Features.PizzaShop.Controllers
 {
-    [Route("api/pizzas")]
+    [Route("api/pizzashop")]
     [ApiController]
     public class SpecialsController : Controller
     {

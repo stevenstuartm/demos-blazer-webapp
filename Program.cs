@@ -1,7 +1,6 @@
 using demos.blazer.webapp;
-using demos.blazer.webapp.Features.Pizza.Repositories;
-using demos.blazer.webapp.Features.Pizza.Services;
-using demos.blazer.webapp.Features.Pizza.States;
+using demos.blazer.webapp.Features.PizzaShop.Repositories;
+using demos.blazer.webapp.Features.PizzaShop.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,8 +9,8 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 builder.Services.AddControllers();
 
-builder.Services.AddSingleton<PizzaService>();
 builder.Services.AddSingleton<PizzaSalesState>();
+builder.Services.AddSingleton<PizzaOrderState>();
 builder.Services.AddHttpClient();
 builder.Services.AddSqlite<PizzaStoreContext>("Data Source=pizza.db");
 
