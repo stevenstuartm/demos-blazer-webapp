@@ -1,0 +1,10 @@
+﻿@using demos.blazer.webapp.Features.Pizza.DTOs
+
+<h2>New Topping: @Topping.Name</h2>
+
+<p>Ingredients: @Topping.Ingredients</p>
+
+@code {
+    [Parameter]
+    public required DTOs.Topping Topping { get; set; }
+}

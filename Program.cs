@@ -1,6 +1,7 @@
 using demos.blazer.webapp;
 using demos.blazer.webapp.Features.Pizza.Repositories;
 using demos.blazer.webapp.Features.Pizza.Services;
+using demos.blazer.webapp.Features.Pizza.States;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,7 @@ builder.Services.AddRazorComponents()
 builder.Services.AddControllers();
 
 builder.Services.AddSingleton<PizzaService>();
+builder.Services.AddSingleton<PizzaSalesState>();
 builder.Services.AddHttpClient();
 builder.Services.AddSqlite<PizzaStoreContext>("Data Source=pizza.db");
 

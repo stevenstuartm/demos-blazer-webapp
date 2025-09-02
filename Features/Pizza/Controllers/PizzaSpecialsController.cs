@@ -16,8 +16,8 @@ namespace demos.blazer.webapp.Features.Pizza.Controllers
             _db = db;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<List<PizzaSpecial>>> GetPizzas()
+        [HttpGet("specials")]
+        public async Task<List<PizzaSpecial>> GetSpecials()
         {
             return (await _db.Specials.ToListAsync()).OrderByDescending(s => s.BasePrice).ToList();
         }
