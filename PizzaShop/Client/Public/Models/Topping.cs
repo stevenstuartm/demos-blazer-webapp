@@ -1,4 +1,4 @@
-﻿namespace demos.blazer.webapp.PizzaShop.Shared.DTOs.Outputs
+﻿namespace demos.blazer.webapp.PizzaShop.Client.Public.Models
 {
     public class Topping
     {

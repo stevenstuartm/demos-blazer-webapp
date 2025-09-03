@@ -1,4 +1,4 @@
-﻿using demos.blazer.webappPizzaShop.Client.Services;
+﻿using demos.blazer.webapp.PizzaShop.Client.Public.Services;
 
 namespace demos.blazer.webapp.CacheManagement
 {

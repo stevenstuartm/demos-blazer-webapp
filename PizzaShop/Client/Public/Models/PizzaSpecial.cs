@@ -1,4 +1,4 @@
-﻿namespace demos.blazer.webapp.PizzaShop.Shared.DTOs.Outputs
+﻿namespace demos.blazer.webapp.PizzaShop.Client.Public.Models
 {
     /// <summary>
     /// Represents a pre-configured template for a pizza a user can order
@@ -14,5 +14,7 @@
         public string Description { get; set; }
 
         public string ImageUrl { get; set; }
+
+        public string GetFormattedBasePrice() => BasePrice.ToString("F2");
     }
 }

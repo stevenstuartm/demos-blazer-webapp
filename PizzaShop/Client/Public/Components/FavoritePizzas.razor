@@ -1,0 +1,10 @@
+﻿@page "/pizzashop/favorite-pizzas/{favorite?}"
+
+<h1>Choose a Pizza</h1>
+
+<p>Your favorite pizza is: @Favorite</p>
+
+@code {
+    [Parameter]
+    public string Favorite { get; set; }
+}

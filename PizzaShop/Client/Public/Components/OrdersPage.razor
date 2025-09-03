@@ -1,0 +1,50 @@
+﻿@page "/pizzashop/orders"
+@using demos.blazer.webapp.PizzaShop.Client.Public.Services
+@using demos.blazer.webapp.PizzaShop.Client.Public.Models
+@using demos.blazer.webapp.PizzaShop.Shared;
+
+@inject IPizzaStoreRepository PizzaStore
+
+<div class="main">
+    @if (orders == null)
+    {
+        <text>Loading...</text>
+    }
+    else if (!orders.Any())
+    {
+        <h2>No orders placed</h2>
+        <a class="btn btn-success" href="pizzashop/menu">Order some pizza</a>
+    }
+    else
+    {
+        <div class="list-group orders-list">
+            @foreach (var item in orders)
+            {
+                <div class="list-group-item">
+                    <div class="col">
+                        <h5>@item.CreatedTime.ToLongDateString()</h5>
+                        Items:
+                        <strong>@item.Pizzas.Count()</strong>;
+                        Total price:
+                        <strong>£@item.GetFormattedTotalPrice()</strong>
+                    </div>
+                    <div class="col">
+                        Status: <strong>@item.StatusText</strong>
+                    </div>
+                    <div class="col flex-grow-0">
+                        <a href="pizzashop/orders/@item.Id" class="btn btn-success"></a>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+@code {
+    List<Order> orders = new List<Order>();
+
+    protected override async Task OnParametersSetAsync()
+    {
+        orders = await PizzaStore.GetOrders();
+    }
+}

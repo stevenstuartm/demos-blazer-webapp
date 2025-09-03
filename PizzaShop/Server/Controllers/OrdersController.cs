@@ -1,10 +1,10 @@
-﻿using demos.blazer.webappPizzaShop.Server.Repositories;
-using demos.blazer.webappPizzaShop.Shared.DTOs.Inputs;
-using demos.blazer.webappPizzaShop.Shared.DTOs.Outputs;
+﻿using demos.blazer.webapp.PizzaShop.Server.Repositories;
+using demos.blazer.webapp.PizzaShop.Shared.DTOs.Inputs;
+using demos.blazer.webapp.PizzaShop.Shared.DTOs.Outputs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace demos.blazer.webappPizzaShop.Server.Controllers
+namespace demos.blazer.webapp.PizzaShop.Server.Controllers
 {
     [Route("api/pizzashop")]
     [ApiController]
@@ -21,6 +21,7 @@ namespace demos.blazer.webappPizzaShop.Server.Controllers
         public async Task<ActionResult<List<Order>>> GetOrders()
         {
             var orders = await _db.Orders
+                .Include(o => o.DeliveryAddress)
                 .Include(o => o.Pizzas).ThenInclude(p => p.Special)
                 .Include(o => o.Pizzas).ThenInclude(p => p.Toppings).ThenInclude(t => t.Topping)
                 .OrderByDescending(o => o.CreatedTime)
@@ -37,14 +38,15 @@ namespace demos.blazer.webappPizzaShop.Server.Controllers
                 UserId = "1",
                 DeliveryAddress = new Address()
                 {
-                    City = "somehwere",
-                    Line1 = "line fdsf",
-                    Name = "sfdf",
-                    PostalCode = "34142",
-                    Region = "FL"
+                    City = input.DeliveryAddress.City,
+                    Line1 = input.DeliveryAddress.Line1,
+                    Name = input.DeliveryAddress.Name,
+                    PostalCode = input.DeliveryAddress.PostalCode,
+                    Region = input.DeliveryAddress.Region,
+                    Line2 = input.DeliveryAddress.Line2
                 },
                 CreatedTime = DateTime.Now,
-                Pizzas = input.Pizzas.Select(p => new Pizza()
+                Pizzas = input.Pizzas.Select(p => new OrderPizza()
                 {
                    Size = p.Size,
                    SpecialId = p.SpecialId
@@ -63,6 +65,7 @@ namespace demos.blazer.webappPizzaShop.Server.Controllers
         {
             var order = await _db.Orders
                 .Where(o => o.Id == orderId)
+                .Include(o => o.DeliveryAddress)
                 .Include(o => o.Pizzas).ThenInclude(p => p.Special)
                 .Include(o => o.Pizzas).ThenInclude(p => p.Toppings).ThenInclude(t => t.Topping)
                 .SingleOrDefaultAsync();

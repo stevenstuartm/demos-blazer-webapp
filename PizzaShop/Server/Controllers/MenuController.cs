@@ -1,9 +1,9 @@
-﻿using demos.blazer.webappPizzaShop.Server.Repositories;
-using demos.blazer.webappPizzaShop.Shared.DTOs.Outputs;
+﻿using demos.blazer.webapp.PizzaShop.Server.Repositories;
+using demos.blazer.webapp.PizzaShop.Shared.DTOs.Outputs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace demos.blazer.webappPizzaShop.Server.Controllers
+namespace demos.blazer.webapp.PizzaShop.Server.Controllers
 {
     [Route("api/pizzashop")]
     [ApiController]

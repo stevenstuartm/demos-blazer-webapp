@@ -1,4 +1,6 @@
-﻿namespace demos.blazer.webapp.PizzaShop.Shared.DTOs.Outputs
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace demos.blazer.webapp.PizzaShop.Client.Public.Models
 {
     public class Pizza
     {

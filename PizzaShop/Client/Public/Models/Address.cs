@@ -1,9 +1,7 @@
-﻿namespace demos.blazer.webapp.PizzaShop.Shared.DTOs.Outputs
+﻿namespace demos.blazer.webapp.PizzaShop.Client.Public.Models
 {
     public class Address
     {
-        public int Id { get; set; }
-
         public string Name { get; set; }
 
         public string Line1 { get; set; }

@@ -3,7 +3,7 @@ using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace demos.blazer.webappPizzaShop.Shared
+namespace demos.blazer.webapp.PizzaShop.Shared
 {
     public class HttpClient
     {

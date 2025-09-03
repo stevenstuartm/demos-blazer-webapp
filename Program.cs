@@ -1,8 +1,8 @@
 ﻿using demos.blazer.webapp;
 using demos.blazer.webapp.CacheManagement;
 using demos.blazer.webapp.Global.Configuration;
-using demos.blazer.webappPizzaShop.Client.Services;
-using demos.blazer.webappPizzaShop.Server.Repositories;
+using demos.blazer.webapp.PizzaShop.Client.Public.Services;
+using demos.blazer.webapp.PizzaShop.Server.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -61,11 +61,20 @@ app.Lifetime.ApplicationStarted.Register(() =>
 // Fallback: kick off initialization on first request if it hasn't happened yet
 app.Use(async (context, next) =>
 {
-    if (!cacheCoordinator.IsInitialized)
+    try
     {
-        _ = cacheCoordinator.InitializeAsync();
+        if (cacheCoordinator != null && !cacheCoordinator.IsInitialized)
+        {
+            _ = cacheCoordinator.InitializeAsync();
+        }
+        await next();
     }
-    await next();
+    catch (Exception ex)
+    {
+        // Log the exception but don't let it crash the middleware
+        Console.WriteLine($"Middleware error: {ex.Message}");
+        await next();
+    }
 });
 
 app.Lifetime.ApplicationStopping.Register(async () =>

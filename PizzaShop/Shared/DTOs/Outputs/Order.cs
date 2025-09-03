@@ -1,4 +1,4 @@
-﻿namespace demos.blazer.webappPizzaShop.Shared.DTOs.Outputs
+﻿namespace demos.blazer.webapp.PizzaShop.Shared.DTOs.Outputs
 {
     public class Order
     {
@@ -10,6 +10,6 @@
 
         public Address DeliveryAddress { get; set; }
 
-        public List<Pizza> Pizzas { get; set; } = new List<Pizza>();
+        public List<OrderPizza> Pizzas { get; set; } = new List<OrderPizza>();
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace demos.blazer.webappPizzaShop.Shared
+﻿namespace demos.blazer.webapp.PizzaShop.Shared
 {
     public static class OrderStatuses
     {

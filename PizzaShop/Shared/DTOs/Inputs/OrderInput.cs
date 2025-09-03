@@ -1,7 +1,13 @@
-﻿namespace demos.blazer.webappPizzaShop.Shared.DTOs.Inputs
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace demos.blazer.webapp.PizzaShop.Shared.DTOs.Inputs
 {
     public class OrderInput
     {
-        public List<PizzaInput> Pizzas { get; set; } = new List<PizzaInput>();
+        [Required]
+        public AddressInput DeliveryAddress { get; set; }
+
+        [Required]
+        public List<OrderPizzaInput> Pizzas { get; set; }
     }
 }
