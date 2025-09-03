@@ -29,24 +29,18 @@ namespace demos.blazer.webappPizzaShop.Client.Services
 
         public async Task<List<Order>> GetOrders()
         {
-            await Init();
-
             var response = await _menuAPI.GetMyOrders();
             return response.Select(o => ToModel(o)).ToList();
         }
 
         public async Task<int> Save(Order order)
         {
-            await Init();
-
             var input = ToDTO(order);
             return await _menuAPI.Save(input);
         }
 
         public async Task<Order?> GetOrder(int id)
         {
-            await Init();
-
             var response = await _menuAPI.GetOrder(id);
 
             if (response == null) return null;
