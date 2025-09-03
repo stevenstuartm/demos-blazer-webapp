@@ -4,7 +4,7 @@
     {
         public DateTime CreatedTime { get; set; }
 
-        public Address DeliveryAddress { get; set; }
+        public Address? DeliveryAddress { get; set; }
 
         public List<Pizza> Pizzas { get; set; } = new List<Pizza>();
 

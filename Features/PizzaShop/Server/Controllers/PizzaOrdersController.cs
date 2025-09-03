@@ -34,6 +34,15 @@ namespace demos.blazer.webapp.Features.PizzaShop.Server.Controllers
         {
             var order = new Order()
             {
+                UserId = "1",
+                DeliveryAddress = new Address()
+                {
+                    City = "somehwere",
+                    Line1 = "line fdsf",
+                    Name = "sfdf",
+                    PostalCode = "34142",
+                    Region = "FL"
+                },
                 CreatedTime = DateTime.Now,
                 Pizzas = input.Pizzas.Select(p => new Pizza()
                 {
