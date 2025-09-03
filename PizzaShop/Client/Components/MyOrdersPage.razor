@@ -1,18 +1,19 @@
-﻿@page "/myorders"
+﻿@page "/pizzashop/myorders"
 
 @using demos.blazer.webappPizzaShop.Client.Models
 @using demos.blazer.webappPizzaShop.Client.Services
+@using demos.blazer.webappPizzaShop.Shared;
 
 @inject IPizzaStoreRepository PizzaStore
 
 <CustomerNavigationBar></CustomerNavigationBar>
 
 <div class="main">
-    @if (ordersWithStatus == null)
+    @if (orders == null)
     {
         <text>Loading...</text>
     }
-    else if (!ordersWithStatus.Any())
+    else if (!orders.Any())
     {
         <h2>No orders placed</h2>
         <a class="btn btn-success" href="pizzas">Order some pizza</a>
@@ -20,27 +21,22 @@
     else
     {
         <div class="list-group orders-list">
-            @foreach (var item in ordersWithStatus)
+            @foreach (var item in orders)
             {
                 <div class="list-group-item">
                     <div class="col">
-                        <h5>@item.Order.CreatedTime.ToLongDateString()</h5>
+                        <h5>@item.CreatedTime.ToLongDateString()</h5>
                         Items:
-                        <strong>@item.Order.Pizzas.Count()</strong>;
+                        <strong>@item.Pizzas.Count()</strong>;
                         Total price:
-                        <strong>£@item.Order.GetFormattedTotalPrice()</strong>
+                        <strong>£@item.GetFormattedTotalPrice()</strong>
                     </div>
                     <div class="col">
                         Status: <strong>@item.StatusText</strong>
                     </div>
-                    @if (@item.StatusText != "Delivered")
-                    {
-                        <div class="col flex-grow-0">
-                            <a href="myorders/" class="btn btn-success">
-                                Track &gt;
-                            </a>
-                        </div>
-                    }
+                    <div class="col flex-grow-0">
+                        <a href="pizzashop/myorders/@item.Id" class="btn btn-success"></a>
+                    </div>
                 </div>
             }
         </div>
@@ -48,10 +44,10 @@
 </div>
 
 @code {
-    List<OrderWithStatus> ordersWithStatus = new List<OrderWithStatus>();
+    List<Order> orders = new List<Order>();
 
     protected override async Task OnParametersSetAsync()
     {
-        ordersWithStatus = await PizzaStore.GetMyOrders();
+        orders = await PizzaStore.GetOrders();
     }
 }

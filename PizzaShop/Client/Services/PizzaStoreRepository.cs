@@ -6,6 +6,7 @@ namespace demos.blazer.webappPizzaShop.Client.Services
 {
     public class PizzaStoreRepository : IPizzaStoreRepository
     {
+        private const string MenuCacheKey = "PizzaSpecials";
         private readonly IPizzaStoreAPI _menuAPI;
         private readonly IGlobalCacheCoordinator _cacheCoordinator;
 
@@ -15,37 +16,49 @@ namespace demos.blazer.webappPizzaShop.Client.Services
         {
             _menuAPI = menuAPI;
             _cacheCoordinator = cacheCoordinator;
-
-            // Subscribe to cache refresh events
             _cacheCoordinator.CacheRefreshed += OnCacheRefreshed;
         }
 
         public async Task Init()
         {
-            // Get cached specials (will be populated by coordinator)
-            Specials = await PizzaSpecialsCache.GetSpecialsAsync(_menuAPI);
+            if (Specials == null || !Specials.Any())
+            {
+                Specials = await PizzaSpecialsCache.GetSpecialsAsync(_menuAPI);
+            }
         }
 
-        public async Task<List<OrderWithStatus>> GetMyOrders()
+        public async Task<List<Order>> GetOrders()
         {
-            // Ensure initialization
             await Init();
 
             var response = await _menuAPI.GetMyOrders();
-            return response.Select(o => ToOrderWithStatusModel(o)).ToList();
+            return response.Select(o => ToModel(o)).ToList();
         }
 
-        public async Task<int> Save(Models.Order order)
+        public async Task<int> Save(Order order)
         {
+            await Init();
+
             var input = ToDTO(order);
             return await _menuAPI.Save(input);
         }
 
+        public async Task<Order?> GetOrder(int id)
+        {
+            await Init();
+
+            var response = await _menuAPI.GetOrder(id);
+
+            if (response == null) return null;
+
+            var model = ToModel(response);
+            return model;
+        }
+
         private async void OnCacheRefreshed(object? sender, CacheRefreshedEventArgs e)
         {
-            if (e.CacheKey == "PizzaSpecials")
+            if (e.CacheKey == MenuCacheKey)
             {
-                // Refresh local specials when cache is updated
                 Specials = await PizzaSpecialsCache.GetSpecialsAsync(_menuAPI);
             }
         }
@@ -53,35 +66,12 @@ namespace demos.blazer.webappPizzaShop.Client.Services
         public readonly static TimeSpan PreparationDuration = TimeSpan.FromSeconds(10);
         public readonly static TimeSpan DeliveryDuration = TimeSpan.FromMinutes(1);
 
-        private OrderWithStatus ToOrderWithStatusModel(Shared.DTOs.Outputs.Order order)
-        {
-            string statusText;
-            var dispatchTime = order.CreatedTime.Add(PreparationDuration);
-
-            if (DateTime.Now < dispatchTime)
-            {
-                statusText = OrderStatuses.Preparing;
-            }
-            else if (DateTime.Now < dispatchTime + DeliveryDuration)
-            {
-                statusText = OrderStatuses.OutForDelivery;
-            }
-            else
-            {
-                statusText = OrderStatuses.Delivered;
-            }
-
-            return new OrderWithStatus
-            {
-                Order = ToModel(order),
-                StatusText = statusText
-            };
-        }
-
         private Order ToModel(Shared.DTOs.Outputs.Order order)
         {
             return new Order()
             {
+                Id = order.Id,
+                StatusText = GetOrderStatus(order),
                 DeliveryAddress = order.DeliveryAddress == null ? null : new Address()
                 {
                     City = order.DeliveryAddress.City,
@@ -99,6 +89,24 @@ namespace demos.blazer.webappPizzaShop.Client.Services
                     Special = Specials.Single(s => s.Id == p.SpecialId)
                 }).ToList()
             };
+        }
+
+        private static string GetOrderStatus(Shared.DTOs.Outputs.Order order)
+        {
+            var dispatchTime = order.CreatedTime.Add(PreparationDuration);
+
+            if (DateTime.Now < dispatchTime)
+            {
+                return OrderStatuses.Preparing;
+            }
+            else if (DateTime.Now < dispatchTime + DeliveryDuration)
+            {
+                return OrderStatuses.OutForDelivery;
+            }
+            else
+            {
+                return OrderStatuses.Delivered;
+            }
         }
 
         private Shared.DTOs.Inputs.OrderInput ToDTO(Order model)

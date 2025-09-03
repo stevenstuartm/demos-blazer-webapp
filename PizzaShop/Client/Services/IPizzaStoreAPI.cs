@@ -8,5 +8,6 @@ namespace demos.blazer.webappPizzaShop.Client.Services
         Task<List<Order>> GetMyOrders();
         Task<List<PizzaSpecial>> GetPizzaSpecials();
         Task<int> Save(OrderInput order);
+        Task<Order?> GetOrder(int id);
     }
 }

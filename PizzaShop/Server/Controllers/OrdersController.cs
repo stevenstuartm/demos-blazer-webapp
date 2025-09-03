@@ -57,5 +57,22 @@ namespace demos.blazer.webappPizzaShop.Server.Controllers
 
             return order.Id;
         }
+
+        [HttpGet("orders/{orderId}")]
+        public async Task<ActionResult<Order>> GetOrder(int orderId)
+        {
+            var order = await _db.Orders
+                .Where(o => o.Id == orderId)
+                .Include(o => o.Pizzas).ThenInclude(p => p.Special)
+                .Include(o => o.Pizzas).ThenInclude(p => p.Toppings).ThenInclude(t => t.Topping)
+                .SingleOrDefaultAsync();
+
+            if (order == null)
+            {
+                return NotFound();
+            }
+
+            return order;
+        }
     }
 }

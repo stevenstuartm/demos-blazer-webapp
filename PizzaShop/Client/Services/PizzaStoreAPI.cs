@@ -33,5 +33,11 @@ namespace demos.blazer.webappPizzaShop.Client.Services
             var response = await _httpClient.Post<int, Shared.DTOs.Inputs.OrderInput>(path, order);
             return response;
         }
+
+        public async Task<Shared.DTOs.Outputs.Order?> GetOrder(int id)
+        {
+            var response = await _httpClient.Get<Shared.DTOs.Outputs.Order>($"orders/{id}");
+            return response;
+        }
     }
 }

@@ -1,4 +1,4 @@
-﻿@page "/checkout"
+﻿@page "/pizzashop/checkout"
 @rendermode InteractiveServer
 
 @using demos.blazer.webappPizzaShop.Client.Models
@@ -50,6 +50,6 @@
 
         OrderState.ResetOrder();
 
-        NavigationManager.NavigateTo("/pizzas");
+        NavigationManager.NavigateTo($"pizzashop/myorders/{newOrderId}");
     }
 }

@@ -56,9 +56,7 @@ using (var scope = scopeFactory.CreateScope())
 }
 
 var cacheCoordinator = app.Services.GetRequiredService<IGlobalCacheCoordinator>();
- _ = cacheCoordinator.InitializeAsync();
-
-// Graceful shutdown
+_ = cacheCoordinator.InitializeAsync();
 app.Lifetime.ApplicationStopping.Register(async () =>
 {
     await cacheCoordinator.StopHeartbeatAsync();
