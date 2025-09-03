@@ -1,8 +1,8 @@
 ﻿using demos.blazer.webapp;
-using demos.blazer.webapp.CacheManagement;
-using demos.blazer.webapp.Configuration;
-using demos.blazer.webapp.Features.PizzaShop.Client.Services;
-using demos.blazer.webapp.Features.PizzaShop.Server.Repositories;
+using demos.blazer.webapp.Global.CacheManagement;
+using demos.blazer.webapp.Global.Configuration;
+using demos.blazer.webappPizzaShop.Client.Services;
+using demos.blazer.webappPizzaShop.Server.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 

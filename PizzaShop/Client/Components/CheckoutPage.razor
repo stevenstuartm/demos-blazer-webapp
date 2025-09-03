@@ -1,0 +1,55 @@
+﻿@page "/checkout"
+@rendermode InteractiveServer
+
+@using demos.blazer.webappPizzaShop.Client.Models
+@using demos.blazer.webappPizzaShop.Client.Services
+
+@inject NavigationManager NavigationManager
+@inject IPizzaStoreRepository PizzaStore
+@inject OrderState OrderState
+
+<CustomerNavigationBar></CustomerNavigationBar>
+
+<div class="main">
+    <div class="checkout-cols">
+        <div class="checkout-order-details">
+            <h4>Review order</h4>
+            @foreach (var pizza in OrderState.Order.Pizzas)
+            {
+                <p>
+                    <strong>
+                        @(pizza.Size)"
+                        @pizza.Special.Name
+                        (£@pizza.GetFormattedTotalPrice())
+                    </strong>
+                </p>
+            }
+
+            <p>
+                <strong>
+                    Total price:
+                    £@OrderState.Order.GetFormattedTotalPrice()
+                </strong>
+            </p>
+        </div>
+    </div>
+
+    <button class="checkout-button btn btn-warning" @onclick="PlaceOrder" disabled=@isSubmitting>
+        Place order
+    </button>
+</div>
+
+@code {
+    bool isSubmitting;
+
+    async Task PlaceOrder()
+    {
+        isSubmitting = true;
+        
+        var newOrderId = await PizzaStore.Save(OrderState.Order);
+
+        OrderState.ResetOrder();
+
+        NavigationManager.NavigateTo("/pizzas");
+    }
+}

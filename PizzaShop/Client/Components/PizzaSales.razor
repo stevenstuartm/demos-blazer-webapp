@@ -1,0 +1,17 @@
+﻿@page "/pizza-sales"
+@rendermode InteractiveServer
+@using demos.blazer.webappPizzaShop.Client.Services
+@inject SalesState SalesState
+
+<h1>Welcome to Blazing Pizzas</h1>
+
+<p>Today, we've sold this many pizzas: @SalesState.PizzasSoldToday</p>
+
+<button @onclick="IncrementSales">Buy a Pizza</button>
+
+@code {
+    private void IncrementSales()
+    {
+        SalesState.PizzasSoldToday += 1;
+    }
+}
