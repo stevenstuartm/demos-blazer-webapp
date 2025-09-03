@@ -1,11 +1,9 @@
-﻿@page "/pizzashop/myorders/{orderId:int}"
+﻿@page "/pizzashop/orders/{orderId:int}"
 
 @using demos.blazer.webappPizzaShop.Client.Models
 @using demos.blazer.webappPizzaShop.Client.Services
 
 @inject IPizzaStoreRepository PizzaStore
-
-<CustomerNavigationBar></CustomerNavigationBar>
 
 <div class="main">
     @if (invalidOrder)

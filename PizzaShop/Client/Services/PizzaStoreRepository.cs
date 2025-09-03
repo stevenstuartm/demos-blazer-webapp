@@ -1,4 +1,4 @@
-﻿using demos.blazer.webapp.Global.CacheManagement;
+﻿using demos.blazer.webapp.CacheManagement;
 using demos.blazer.webappPizzaShop.Client.Models;
 using demos.blazer.webappPizzaShop.Shared;
 

@@ -1,5 +1,5 @@
 ﻿using demos.blazer.webapp;
-using demos.blazer.webapp.Global.CacheManagement;
+using demos.blazer.webapp.CacheManagement;
 using demos.blazer.webapp.Global.Configuration;
 using demos.blazer.webappPizzaShop.Client.Services;
 using demos.blazer.webappPizzaShop.Server.Repositories;

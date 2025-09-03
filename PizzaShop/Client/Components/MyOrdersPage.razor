@@ -1,12 +1,9 @@
-﻿@page "/pizzashop/myorders"
-
+﻿@page "/pizzashop/orders"
 @using demos.blazer.webappPizzaShop.Client.Models
 @using demos.blazer.webappPizzaShop.Client.Services
 @using demos.blazer.webappPizzaShop.Shared;
 
 @inject IPizzaStoreRepository PizzaStore
-
-<CustomerNavigationBar></CustomerNavigationBar>
 
 <div class="main">
     @if (orders == null)

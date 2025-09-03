@@ -1,4 +1,5 @@
 ﻿@page "/pizzashop/pizzas"
+@page "/pizzashop"
 @rendermode InteractiveServer
 
 @using demos.blazer.webappPizzaShop.Client.Services
@@ -6,10 +7,7 @@
 @inject IPizzaStoreRepository PizzaStore
 @inject OrderState OrderState
 
-<CustomerNavigationBar></CustomerNavigationBar>
-
 <div class="main">
-    <h1>Blazing Pizzas</h1>
     <ul class="pizza-cards">
         @if (PizzaStore.Specials != null)
         {

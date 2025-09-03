@@ -1,4 +1,4 @@
-﻿namespace demos.blazer.webapp.Global.CacheManagement
+﻿namespace demos.blazer.webapp.CacheManagement
 {
     public class CacheRefreshedEventArgs : EventArgs
     {

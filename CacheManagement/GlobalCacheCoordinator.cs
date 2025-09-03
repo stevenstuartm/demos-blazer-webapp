@@ -1,6 +1,6 @@
 ﻿using demos.blazer.webappPizzaShop.Client.Services;
 
-namespace demos.blazer.webapp.Global.CacheManagement
+namespace demos.blazer.webapp.CacheManagement
 {
     public class GlobalCacheCoordinator : IGlobalCacheCoordinator, IDisposable
     {
