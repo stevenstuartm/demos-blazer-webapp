@@ -1,5 +1,6 @@
 ﻿@page "/pizzashop/checkout"
 @rendermode InteractiveServer
+@implements IDisposable
 
 @using demos.blazer.webapp.PizzaShop.Client.Public.Services
 @using demos.blazer.webapp.PizzaShop.Client.Public.Models
@@ -9,7 +10,7 @@
 @inject OrderState OrderState
 
 <div class="main">
-    <EditForm Model=Order.DeliveryAddress OnSubmit=CheckSubmission>
+    <EditForm EditContext=editContext OnValidSubmit=PlaceOrder>
         <div class="checkout-cols">
             <div class="checkout-order-details">
                 <h4>Review order</h4>
@@ -26,44 +27,47 @@
             </div>
         </div>
 
-        <button class="checkout-button btn btn-warning" disabled=@isSubmitting>
+        <button class="checkout-button btn btn-warning" type="Submit" disabled=@isError>
             Place order
         </button>
+        <DataAnnotationsValidator />
     </EditForm>
 </div>
 
 @code {
-    bool isSubmitting;
+    EditContext editContext;
     bool isError = false;
     Order Order;
 
     protected override void OnInitialized()
     {
         Order = OrderState.Order;
+        editContext = new(Order.DeliveryAddress);
+        editContext.OnFieldChanged += HandleFieldChanged;
     }
 
-    private async Task CheckSubmission(EditContext editContext)
+    private void HandleFieldChanged(object? sender, FieldChangedEventArgs e)
     {
-        isSubmitting = true;
-        var model = editContext.Model as Address;
-        isError = string.IsNullOrWhiteSpace(model?.Name)
-            || string.IsNullOrWhiteSpace(model?.Line1)
-            || string.IsNullOrWhiteSpace(model?.PostalCode);
-        if (!isError)
-        {
-            await PlaceOrder();
-        }
-        isSubmitting = false;
+        isError = !editContext.Validate();
+        StateHasChanged();
     }
 
     private async Task PlaceOrder()
     {
-        isSubmitting = true;
-        
         var newOrderId = await PizzaStore.Save(OrderState.Order);
 
         OrderState.ResetOrder();
 
         NavigationManager.NavigateTo($"pizzashop/orders/{newOrderId}");
+    }
+
+    protected void ShowError()
+    {
+        isError = true;
+    }
+
+    public void Dispose()
+    {
+        editContext.OnFieldChanged -= HandleFieldChanged;
     }
 }

@@ -3,22 +3,32 @@
 
 <h1>Add a new pizza</h1>
 
-<EditForm Model="@pizza">
+<EditForm Model="@pizza" OnValidSubmit=@ProcessInputData OnInvalidSubmit=@ShowFeedback>
     <DataAnnotationsValidator />
     <ValidationSummary />
-
+    
     <InputText id="name" @bind-Value="pizza.Name" />
     <ValidationMessage For="@(() => pizza.Name)" />
-
+    
     <InputText id="description" @bind-Value="pizza.Description" />
-
+    
     <InputText id="chefemail" @bind-Value="pizza.ChefEmail" />
     <ValidationMessage For="@(() => pizza.ChefEmail)" />
-
+    
     <InputNumber id="price" @bind-Value="pizza.Price" />
     <ValidationMessage For="@(() => pizza.Price)" />
 </EditForm>
 
 @code {
     private Pizza pizza = new();
+    
+    void ProcessInputData(EditContext context)
+    {
+        // Store valid data here
+    }
+    
+    void ShowFeedback(EditContext context)
+    {
+        // Take action here to help the user correct the issues
+    }
 }
