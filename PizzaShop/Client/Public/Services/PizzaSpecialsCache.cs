@@ -68,7 +68,8 @@ namespace demos.blazer.webapp.PizzaShop.Client.Public.Services
                 Description = special.Description,
                 Id = special.Id,
                 ImageUrl = special.ImageUrl,
-                Name = special.Name
+                Name = special.Name,
+                FixedSize = special.FixedSize
             };
         }
     }

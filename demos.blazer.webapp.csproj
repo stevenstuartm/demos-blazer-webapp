@@ -20,4 +20,8 @@
     <PackageReference Include="System.Net.Http.Json" Version="9.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\demos.blazer.core\demos.blazer.core.csproj" />
+  </ItemGroup>
+
 </Project>

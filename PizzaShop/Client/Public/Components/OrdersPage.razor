@@ -17,26 +17,35 @@
     }
     else
     {
-        <div class="list-group orders-list">
-            @foreach (var item in orders)
-            {
+        <PaginationComponent TItem="Order"
+                                Items="orders.OrderBy(o => o.CreatedTime).ToList()"
+                                ItemLabel='item => new($"{item.CreatedTime:ddd, MMM. d, yyyy}")'>
+            <ItemContent>
+                <div class="list-group-item bg-secondary text-white">
+                    <div class="col">
+                        <h5>@($"{context.CreatedTime:dddd, MMMM d, yyyy hh:mm tt}")</h5>
+                        Items:
+                        <strong>@context.Pizzas.Count</strong>
+                    </div>
+                    <div class="col">
+                        Status: <strong>@context.StatusText</strong>
+                    </div>
+                    @if (@context.StatusText != "Delivered")
+                    {
+                        <div class="col flex-grow-0">
+                            <a href="pizzashop/orders/@context.Id" class="btn btn-success">
+                                Track &gt;
+                            </a>
+                        </div>
+                    }
+                </div>
                 <div class="list-group-item">
                     <div class="col">
-                        <h5>@item.CreatedTime.ToLongDateString()</h5>
-                        Items:
-                        <strong>@item.Pizzas.Count()</strong>;
-                        Total price:
-                        <strong>£@item.GetFormattedTotalPrice()</strong>
-                    </div>
-                    <div class="col">
-                        Status: <strong>@item.StatusText</strong>
-                    </div>
-                    <div class="col flex-grow-0">
-                        <a href="pizzashop/orders/@item.Id" class="btn btn-success"></a>
+                        <OrderReview Order="@context" />
                     </div>
                 </div>
-            }
-        </div>
+            </ItemContent>
+        </PaginationComponent>
     }
 </div>
 

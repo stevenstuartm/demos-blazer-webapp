@@ -6,8 +6,8 @@
     public class OrderPizza
     {
         public const int DefaultSize = 12;
-        public const int MinimumSize = 9;
-        public const int MaximumSize = 17;
+        public int MinimumSize = 9;
+        public int MaximumSize = 17;
 
         public PizzaSpecial Special { get; set; }
 
@@ -15,10 +15,10 @@
 
         public List<int>? ToppingIds { get; set; }
 
-        public decimal GetBasePrice()
-        {
-            return Size / (decimal)DefaultSize * Special.BasePrice;
-        }
+        public decimal GetBasePrice() =>
+            Special is { FixedSize: not null }
+                ? Special.BasePrice
+                : (decimal)Size / DefaultSize * Special?.BasePrice ?? 1;
 
         public decimal GetTotalPrice()
         {
